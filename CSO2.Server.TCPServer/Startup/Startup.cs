@@ -42,8 +42,8 @@ namespace TCPServer.Startup
 
                 // TODO: Move this to config
                 IChannel bootstrapChannel = serverBootstrap.BindAsync(
-                    IPAddress.Parse("10.0.0.2")
-                    , 30001
+                    IPAddress.Parse("127.0.0.1")
+                    , 12000 // avoid known ports
                     ).GetAwaiter()
                     .GetResult();
 

@@ -13,7 +13,7 @@ namespace CSO2.Server.Launcher
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("CounterSharpO2 Project");
+            Console.WriteLine("Counter-Strike Online 2 Server");
             Thread TCPThread = new Thread(new ThreadStart(
                 TCPServer
                 .Startup
