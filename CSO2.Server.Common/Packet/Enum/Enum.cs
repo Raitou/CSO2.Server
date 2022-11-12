@@ -8,8 +8,8 @@ namespace CSO2.Server.Common.Packet.Enum
 {
     public enum PacketID
     {
-        PacketTypeGetVersionInfo = 0,
-        PacketTypeClientConnect = -1,
+        VersionInfo = 0,
+        ClientConnect = -1,
         PacketTypeUnk2 = 2,
         PacketTypeLogin = 3,
         PacketTypeServerList = 5,
