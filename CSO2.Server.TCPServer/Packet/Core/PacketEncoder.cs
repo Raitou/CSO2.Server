@@ -9,7 +9,7 @@ namespace CSO2.Server.TCPServer.Packet.Core
 {
     internal class PacketEncoder : MessageToByteEncoder<IPacket>
     {
-        private TcpClient _client;
+        private readonly TcpClient _client;
         public PacketEncoder(TcpClient client)
         {
             _client = client;
@@ -23,7 +23,7 @@ namespace CSO2.Server.TCPServer.Packet.Core
                 try
                 {
                     if (message.GetPacket() == null)
-                        throw new Exception();
+                        throw new Exception("Packet is Empty");
 
                     if(message.PacketID != PacketID.ClientConnect)
                     {
@@ -43,12 +43,6 @@ namespace CSO2.Server.TCPServer.Packet.Core
                         message.ByteBuffer.Clear();
                 }
             }
-        }
-
-        private bool isInitialPacket()
-        {
-
-            return true;
         }
 
         private byte createHeader()

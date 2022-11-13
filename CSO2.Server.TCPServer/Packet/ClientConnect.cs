@@ -2,33 +2,22 @@
 using CSO2.Server.Common.Packet.Enum;
 using DotNetty.Buffers;
 using System.Text;
-
+using AbstractPacket = CSO2.Server.Common.Packet.Packet;
 namespace CSO2.Server.TCPServer.Packet
 {
-    internal class ClientConnect : IPacket
+    internal class ClientConnect : AbstractPacket
     {
         public string StrMessage { get; set; }
-        public IByteBuffer ByteBuffer { get; }
-        public PacketID PacketID { get; }
 
-        public ClientConnect(string strMessage)
+        public ClientConnect(string strMessage) : base (PacketID.ClientConnect)
         {
             StrMessage = strMessage;
-            ByteBuffer = Unpooled.Buffer(1024);
-            PacketID = PacketID.ClientConnect;
         }
 
-        public IPacket BuildPacket()
+        public override IPacket BuildPacket()
         {
             ByteBuffer.Clear();
             ByteBuffer.WriteString(StrMessage, Encoding.UTF8);
-            return this;
-        }
-
-        public IPacket? GetPacket()
-        {
-            if (ByteBuffer.ReadableBytes <= 0)
-                return null;
             return this;
         }
     }

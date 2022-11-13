@@ -1,22 +1,16 @@
-﻿using CSO2.Server.TCPServer.Packet.Helper;
+﻿using CSO2.Server.Common.Action;
+using CSO2.Server.TCPServer.Packet.Helper;
+using DotNetty.Transport.Channels;
 using Action = CSO2.Server.Common.Action.Action;
 
 namespace CSO2.Server.TCPServer.Actions
 {
-    public class OnLogin : Action
+    public class OnLogin : ActionChannelCtx
     {
-        private readonly LoginHelper _loginHelper;
-        public OnLogin()
-        {
-            _loginHelper = new LoginHelper();
-        }
+        public OnLogin(IChannelHandlerContext ctx) : base(ctx)
+        { }
 
         public override void Execute()
-        {
-            
-        }
-
-        public override void Setup()
         {
             throw new NotImplementedException();
         }

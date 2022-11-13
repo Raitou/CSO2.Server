@@ -4,25 +4,27 @@ using TCPServer.Channel.Helper;
 using CSO2.Server.Common.Packet.Enum;
 using CSO2.Server.Common.Utilities;
 using CSO2.Server.TCPServer.Packet.Core;
+using CSO2.Server.Common.Action;
+using CSO2.Server.TCPServer.Actions;
 
 namespace TCPServer.Channel.Handler
 {
     internal class ChannelHandler : SimpleChannelInboundHandler<PacketData>
     {
-        private readonly ChannelHelper _channelHelper;
+        private IAction? _action;
         public ChannelHandler()
         {
             // Since every connection creates a new set of its own pipeline then we shouldn't
             // really practice static here especially on a helper class so we make it an
             // object member instead
-            _channelHelper = new ChannelHelper();
+            //_channelHelper = new ChannelHelper(); // Restructured as Actions
 
         }
 
         // Initial Connection
         public override void ChannelActive(IChannelHandlerContext context)
         {
-           _channelHelper.OnClientConnect(context);
+            new OnClientConnect(context).Execute();
         }
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, PacketData msg)
@@ -33,13 +35,15 @@ namespace TCPServer.Channel.Handler
                 {
                     case PacketID.VersionInfo:
                         {
-                            _channelHelper.OnVersionInfo(ctx);
+                            _action = new OnVersionInfo(ctx);
+                            //_channelHelper.OnVersionInfo(ctx);
                         }
                         break;
 
                     case PacketID.Login:
                         {
-                            _channelHelper.OnLogin(ctx, msg);
+                            _action = new OnLogin(ctx);
+                            //_channelHelper.OnLogin(ctx, msg);
                         }
                         break;
 
@@ -50,13 +54,20 @@ namespace TCPServer.Channel.Handler
                         }
                         break;
                 }
+
+                if(_action != null)
+                {
+                    _action.Execute();
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-
-
+            finally
+            {
+                _action = null;
+            }
         }
     }
 }

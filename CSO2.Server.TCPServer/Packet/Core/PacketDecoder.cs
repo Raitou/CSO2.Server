@@ -8,35 +8,35 @@ namespace CSO2.Server.TCPServer.Packet.Core
 {
     internal class PacketDecoder : ByteToMessageDecoder
     {
-        private TcpClient _client;
+        private readonly TcpClient _client;
         public PacketDecoder(TcpClient client)
         {
             _client = client;
         }
 
         private readonly object _lock = new object();
-        protected override void Decode(IChannelHandlerContext _context, IByteBuffer _input, List<object> _output)
+        protected override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
         {
             lock(_lock)
             {
                 try
                 {
-                    if (_input == null)
+                    if (input == null)
                     {
                         throw new IndexOutOfRangeException();
                     }
-                    if (_input.ReadableBytes <= 0)
+                    if (input.ReadableBytes <= 0)
                     {
                         throw new IndexOutOfRangeException();
                     }
-                    byte header = _input.ReadByte();
+                    byte header = input.ReadByte();
                     if (validateHeader(header) != true)
                     {
                         throw new Exception(String.Format("Invalid Header. Header expect {0} but received {1}", 
                             PacketSignature.TCPSignature,
                             header));
                     }
-                    byte seq = _input.ReadByte();
+                    byte seq = input.ReadByte();
                     if (validateSequence(seq) != true)
                     {
                         throw new Exception(String.Format("Invalid sequence. Sequence expect {0} but received {1}", 
@@ -44,7 +44,7 @@ namespace CSO2.Server.TCPServer.Packet.Core
                             seq));
                     }
                     setSequence(seq);
-                    _output.Add(new PacketData(parseRawData(_input)));
+                    output.Add(new PacketData(parseRawData(input)));
                 }
                 catch (Exception ex)
                 {
@@ -52,7 +52,7 @@ namespace CSO2.Server.TCPServer.Packet.Core
                 }
                 finally
                 {
-                    _input.Clear();
+                    if(input != null) input.Clear();
                 }
             }
            
