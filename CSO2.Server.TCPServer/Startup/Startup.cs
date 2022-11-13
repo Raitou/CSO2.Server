@@ -1,12 +1,12 @@
-﻿using DotNetty.Transport.Bootstrapping;
+﻿using CSO2.Server.TCPServer.Packet.Core;
+using DotNetty.Transport.Bootstrapping;
 using DotNetty.Transport.Channels;
 using DotNetty.Transport.Channels.Sockets;
 using System.Net;
-using TCPServer.Packet.Core;
-using TCPServer.Client;
 using TCPServer.Channel.Handler;
+using TCPServer.Client;
 
-namespace TCPServer.Startup
+namespace CSO2.Server.TCPServer.Startup
 {
     public static class Startup
     {
@@ -28,7 +28,7 @@ namespace TCPServer.Startup
                     .Channel<TcpServerSocketChannel>()
                     .ChildHandler(new ActionChannelInitializer<IChannel>(channel =>
                     {
-                        TCPClient client = new TCPClient(channel);
+                        TcpClient client = new TcpClient(channel);
                         IChannelPipeline pipeline = channel.Pipeline;
                         pipeline.AddLast(
                             new PacketDecoder(client),

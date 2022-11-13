@@ -1,8 +1,6 @@
-﻿
+﻿using CSO2.Server.Common.Packet.Enum;
 
-using CSO2.Server.Common.Packet.Enum;
-
-namespace TCPServer.Packet.Core
+namespace CSO2.Server.TCPServer.Packet.Core
 {
     internal class PacketData
     {

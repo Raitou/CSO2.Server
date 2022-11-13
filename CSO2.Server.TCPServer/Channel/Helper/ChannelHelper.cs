@@ -1,7 +1,7 @@
 ﻿using CSO2.Server.Common.Packet;
+using CSO2.Server.TCPServer.Packet;
+using CSO2.Server.TCPServer.Packet.Core;
 using DotNetty.Transport.Channels;
-using TCPServer.Packet;
-using TCPServer.Packet.Core;
 
 namespace TCPServer.Channel.Helper
 {

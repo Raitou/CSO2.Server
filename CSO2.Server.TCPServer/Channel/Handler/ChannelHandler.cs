@@ -1,15 +1,15 @@
 ﻿
 using DotNetty.Transport.Channels;
-using TCPServer.Packet.Core;
 using TCPServer.Channel.Helper;
 using CSO2.Server.Common.Packet.Enum;
 using CSO2.Server.Common.Utilities;
+using CSO2.Server.TCPServer.Packet.Core;
 
 namespace TCPServer.Channel.Handler
 {
     internal class ChannelHandler : SimpleChannelInboundHandler<PacketData>
     {
-        private ChannelHelper _channelHelper;
+        private readonly ChannelHelper _channelHelper;
         public ChannelHandler()
         {
             // Since every connection creates a new set of its own pipeline then we shouldn't
@@ -37,7 +37,7 @@ namespace TCPServer.Channel.Handler
                         }
                         break;
 
-                    case PacketID.PacketTypeLogin:
+                    case PacketID.Login:
                         {
                             _channelHelper.OnLogin(ctx, msg);
                         }

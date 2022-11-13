@@ -4,12 +4,12 @@ using DotNetty.Codecs;
 using DotNetty.Transport.Channels;
 using TCPServer.Client;
 
-namespace TCPServer.Packet.Core
+namespace CSO2.Server.TCPServer.Packet.Core
 {
     internal class PacketDecoder : ByteToMessageDecoder
     {
-        private TCPClient _client;
-        public PacketDecoder(TCPClient client)
+        private TcpClient _client;
+        public PacketDecoder(TcpClient client)
         {
             _client = client;
         }

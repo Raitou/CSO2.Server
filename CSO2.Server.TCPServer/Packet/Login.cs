@@ -1,39 +1,34 @@
-﻿using CSO2.Server.Common.Packet;
+﻿using CSO2.Server.Common.Client;
+using CSO2.Server.TCPServer.Packet.Helper;
+using CSO2.Server.Common.Packet;
 using CSO2.Server.Common.Packet.Enum;
 using DotNetty.Buffers;
-using TCPServer.Packet.Core;
 using System.Text;
 
-namespace TCPServer.Packet
+namespace CSO2.Server.TCPServer.Packet
 {
-    internal class Login : IPacket
+    internal class Login : ILogin, IPacket
     {
-        public int _userid;
-        public string _UserName;
-        public string _IngameName;
-        public int _non;
-        public int _HolePunchPort;
         public IByteBuffer ByteBuffer { get; set; }
         public PacketID PacketID { get; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
 
-        public Login(int Userid, string UserName, string IngameName, int HolePunchPort)
+        public Login(string username, string password)
         {
-            _userid = Userid;
-            _UserName = UserName;
-            _IngameName = IngameName;
-            _HolePunchPort = HolePunchPort;
+            UserName = username;
+            Password = password;
             ByteBuffer = Unpooled.Buffer(1024);
         }
-
 
         public IPacket BuildPacket()
         {
             ByteBuffer.Clear();
-            ByteBuffer.WriteInt(_userid); // User ID
-            ByteBuffer.WriteString(_UserName, Encoding.ASCII); 
-            ByteBuffer.WriteString(_IngameName, Encoding.ASCII);
+            ByteBuffer.WriteInt(0); // User ID
+            ByteBuffer.WriteString("testuser", Encoding.ASCII); 
+            ByteBuffer.WriteString("testuser", Encoding.ASCII);
             ByteBuffer.WriteInt(1); // Access
-            ByteBuffer.WriteInt(_HolePunchPort); // UDP Port
+            ByteBuffer.WriteInt(9001); // UDP Port
             return this;
         }
 

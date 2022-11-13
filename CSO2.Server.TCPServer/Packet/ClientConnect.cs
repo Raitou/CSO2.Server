@@ -3,7 +3,7 @@ using CSO2.Server.Common.Packet.Enum;
 using DotNetty.Buffers;
 using System.Text;
 
-namespace TCPServer.Packet
+namespace CSO2.Server.TCPServer.Packet
 {
     internal class ClientConnect : IPacket
     {

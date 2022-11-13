@@ -1,7 +1,6 @@
 ﻿using CSO2.Server.Common.Packet;
 using CSO2.Server.Common.Packet.Enum;
 using DotNetty.Buffers;
-using TCPServer.Packet.Core;
 using System.Text;
 
 namespace TCPServer.Packet
@@ -12,12 +11,6 @@ namespace TCPServer.Packet
         public IByteBuffer ByteBuffer { get; }
         public PacketID PacketID { get; }
 
-        const int MessageCongratulate = 11;
-        const int MessageSystemImportant = 20;
-        const int MessageDialogBox = 21;
-        const int MessageNotice = 22;
-        const int MessageSystem = 22;
-        const int MessageDialogBoxExit = 60;
 
         public OnSendMessage(string InGameMessage)
         {

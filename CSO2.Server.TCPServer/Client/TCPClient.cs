@@ -4,13 +4,13 @@ using DotNetty.Transport.Channels;
 
 namespace TCPServer.Client
 {
-    internal class TCPClient : IClient
+    internal class TcpClient : IClient
     {
         public IChannel Channel { get; set; }
 
         public byte Sequence { get; set; }
 
-        public TCPClient(IChannel _ch)
+        public TcpClient(IChannel _ch)
         {
             Channel = _ch;
             Sequence = 0;

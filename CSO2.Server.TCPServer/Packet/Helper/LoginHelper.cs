@@ -1,13 +1,27 @@
-﻿using System;
+﻿using CSO2.Server.Common.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TCPServer.Packet.Helper
+namespace CSO2.Server.TCPServer.Packet.Helper
 {
-    internal class LoginHelper
+    public class LoginHelper
     {
+        public void ProcessLogin()
+        {
+
+        }
+
+
+        public bool ValidateLogin(ILogin login)
+        {
+            //Test Login
+            return (login.UserName == login.Password);
+
+            //TODO: Create Repository for User Table @ CSO2.Database
+        }
 
     }
 }
