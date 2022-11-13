@@ -1,5 +1,6 @@
 ﻿using CSO2.Server.Common.Packet.Enum;
 using DotNetty.Buffers;
+using DotNetty.Codecs.Mqtt.Packets;
 
 namespace CSO2.Server.Common.Packet
 {
@@ -9,6 +10,6 @@ namespace CSO2.Server.Common.Packet
         PacketID PacketID { get; }
         IPacket BuildPacket();
         IPacket? GetPacket();
-       
+
     }
 }

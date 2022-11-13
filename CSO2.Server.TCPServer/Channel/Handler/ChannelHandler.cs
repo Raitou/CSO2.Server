@@ -37,11 +37,11 @@ namespace TCPServer.Channel.Handler
                         }
                         break;
 
-                    //case PacketID.Login:
-                    //    {
-                    //        ChannelHelper.OnLogin(ctx, msg);
-                    //    }
-                    //    break;
+                    case PacketID.PacketTypeLogin:
+                        {
+                            _channelHelper.OnLogin(ctx, msg);
+                        }
+                        break;
 
                     default:
                         {
