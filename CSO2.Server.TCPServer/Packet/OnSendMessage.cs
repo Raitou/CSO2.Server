@@ -1,4 +1,5 @@
-﻿using CSO2.Server.Common.Packet;
+﻿using CSO2.Server.Common.Data.Map;
+using CSO2.Server.Common.Packet;
 using CSO2.Server.Common.Packet.Enum;
 using DotNetty.Buffers;
 using System.Text;
@@ -11,6 +12,7 @@ namespace TCPServer.Packet
         public IByteBuffer ByteBuffer { get; }
         public PacketID PacketID { get; }
 
+        public IDataMap DataMap => throw new NotImplementedException();
 
         public OnSendMessage(string InGameMessage)
         {

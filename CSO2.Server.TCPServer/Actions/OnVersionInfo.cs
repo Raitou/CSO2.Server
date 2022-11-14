@@ -1,4 +1,5 @@
 ﻿using CSO2.Server.Common.Action;
+using CSO2.Server.Common.Packet;
 using CSO2.Server.TCPServer.Packet;
 using DotNetty.Transport.Channels;
 
@@ -6,7 +7,7 @@ namespace CSO2.Server.TCPServer.Actions
 {
     public class OnVersionInfo : ActionChannelCtx
     {
-        public OnVersionInfo(IChannelHandlerContext ctx) : base(ctx) { }
+        public OnVersionInfo(IChannelHandlerContext ctx, PacketData packetData) : base(ctx, packetData) { }
 
         public override void Execute()
         {            

@@ -1,5 +1,6 @@
 ﻿using CSO2.Server.Common.Packet;
 using CSO2.Server.Common.Packet.Enum;
+using CSO2.Server.TCPServer.Data.Map;
 using DotNetty.Buffers;
 using System.Text;
 using AbstractPacket = CSO2.Server.Common.Packet.Packet;
@@ -10,19 +11,13 @@ namespace CSO2.Server.TCPServer.Packet
         private readonly string _version;
         private readonly bool _isBadhash;
 
-        public VersionInfo(string versionHash, bool isBadHash = false) : base(PacketID.VersionInfo)
+        public VersionInfo(string versionHash, bool isBadHash = false) : base(PacketID.VersionInfo, new MapVersionInfo())
         {
             _version = versionHash;
             _isBadhash = isBadHash;
-        }
 
-        public override IPacket BuildPacket()
-        {
-            ByteBuffer.Clear();
-            ByteBuffer.WriteByte((int)PacketID);
-            ByteBuffer.WriteBoolean(_isBadhash);
-            ByteBuffer.WriteString(_version, Encoding.ASCII);
-            return this;
+            DataMap.MappedData["bBadHash"][MappedDataTypes.Boolean] = isBadHash;
+            DataMap.MappedData["strVersion"][MappedDataTypes.String_ASCII] = versionHash;
         }
     }
 }

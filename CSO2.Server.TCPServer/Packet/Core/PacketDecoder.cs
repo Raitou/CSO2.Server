@@ -1,4 +1,5 @@
-﻿using CSO2.Server.Common.Packet.Enum;
+﻿using CSO2.Server.Common.Packet;
+using CSO2.Server.Common.Packet.Enum;
 using DotNetty.Buffers;
 using DotNetty.Codecs;
 using DotNetty.Transport.Channels;

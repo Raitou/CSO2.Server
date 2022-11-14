@@ -4,6 +4,7 @@ using CSO2.Server.Common.Packet;
 using CSO2.Server.Common.Packet.Enum;
 using DotNetty.Buffers;
 using System.Text;
+using CSO2.Server.Common.Data.Map;
 
 namespace CSO2.Server.TCPServer.Packet
 {
@@ -13,6 +14,8 @@ namespace CSO2.Server.TCPServer.Packet
         public PacketID PacketID { get; }
         public string UserName { get; set; }
         public string Password { get; set; }
+
+        public IDataMap DataMap => throw new NotImplementedException();
 
         public Login(string username, string password)
         {

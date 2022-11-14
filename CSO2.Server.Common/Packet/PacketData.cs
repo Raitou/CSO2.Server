@@ -1,8 +1,8 @@
 ﻿using CSO2.Server.Common.Packet.Enum;
 
-namespace CSO2.Server.TCPServer.Packet.Core
+namespace CSO2.Server.Common.Packet
 {
-    internal class PacketData
+    public class PacketData
     {
         public byte[] RawData { get; }
         public PacketData(byte[] rawData)

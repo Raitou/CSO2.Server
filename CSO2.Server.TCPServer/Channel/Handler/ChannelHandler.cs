@@ -6,6 +6,7 @@ using CSO2.Server.Common.Utilities;
 using CSO2.Server.TCPServer.Packet.Core;
 using CSO2.Server.Common.Action;
 using CSO2.Server.TCPServer.Actions;
+using CSO2.Server.Common.Packet;
 
 namespace TCPServer.Channel.Handler
 {
@@ -24,7 +25,7 @@ namespace TCPServer.Channel.Handler
         // Initial Connection
         public override void ChannelActive(IChannelHandlerContext context)
         {
-            new OnClientConnect(context).Execute();
+            new OnClientConnect(context, new PacketData(new byte[] {0})).Execute();
         }
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, PacketData msg)
@@ -35,14 +36,14 @@ namespace TCPServer.Channel.Handler
                 {
                     case PacketID.VersionInfo:
                         {
-                            _action = new OnVersionInfo(ctx);
+                            _action = new OnVersionInfo(ctx, msg);
                             //_channelHelper.OnVersionInfo(ctx);
                         }
                         break;
 
                     case PacketID.Login:
                         {
-                            _action = new OnLogin(ctx);
+                            _action = new OnLogin(ctx, msg);
                             //_channelHelper.OnLogin(ctx, msg);
                         }
                         break;

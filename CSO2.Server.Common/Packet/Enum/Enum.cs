@@ -68,4 +68,20 @@ namespace CSO2.Server.Common.Packet.Enum
         System = Notice,
         DialogBoxExit = 60,
     }
+
+    public enum MappedDataTypes
+    {
+        Integer = 0,
+        IntegerLE,
+        Short,
+        ShortLE,
+        Long,
+        LongLE,
+        Float,
+        FloatLE,
+        Char,
+        Boolean,
+        String_UTF8,
+        String_ASCII,
+    }
 }
