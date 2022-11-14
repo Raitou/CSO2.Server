@@ -37,16 +37,14 @@ namespace TCPServer.Channel.Handler
                     case PacketID.VersionInfo:
                         {
                             _action = new OnVersionInfo(ctx, msg);
-                            //_channelHelper.OnVersionInfo(ctx);
                         }
                         break;
 
-                    case PacketID.Login:
-                        {
-                            _action = new OnLogin(ctx, msg);
-                            //_channelHelper.OnLogin(ctx, msg);
-                        }
-                        break;
+                    //case PacketID.Login:
+                    //    {
+                    //        _action = new OnLogin(ctx, msg);
+                    //    }
+                    //    break;
 
                     default:
                         {

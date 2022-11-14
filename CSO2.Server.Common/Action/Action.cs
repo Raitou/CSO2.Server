@@ -10,13 +10,6 @@ namespace CSO2.Server.Common.Action
 {
     public abstract class Action : IAction
     {
-        public PacketData PacketData { get; protected set; }
-
-        protected Action(PacketData packetData)
-        {
-            PacketData = packetData;
-        }
-
         public abstract void Execute();    
     }
 
@@ -24,7 +17,7 @@ namespace CSO2.Server.Common.Action
     {
         public IChannelHandlerContext ChannelHandlerContext { get; protected set; }
 
-        protected ActionChannelCtx(IChannelHandlerContext ctx, PacketData packetData) : base(packetData)
+        protected ActionChannelCtx(IChannelHandlerContext ctx)
         {
             ChannelHandlerContext = ctx;
         }

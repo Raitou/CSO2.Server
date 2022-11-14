@@ -12,7 +12,7 @@ namespace CSO2.Server.Common.Packet
         IDataMap DataMap { get; }
 
         IPacket BuildPacket();
-        IPacket? GetPacket();
+        IPacket? GetBuiltPacket();
 
     }
 }

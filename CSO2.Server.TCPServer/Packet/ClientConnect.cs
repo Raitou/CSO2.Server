@@ -14,7 +14,7 @@ namespace CSO2.Server.TCPServer.Packet
         {
             StrMessage = strMessage;
 
-            DataMap.MappedData["strMessage"][MappedDataTypes.String_UTF8] = strMessage;
+            DataMap.MappedDataOut["strMessage"][MappedDataTypes.Bytes_NoLen] = Encoding.UTF8.GetBytes(strMessage);
         }
     }
 }

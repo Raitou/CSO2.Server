@@ -29,7 +29,7 @@ namespace TCPServer.Client
             Channel.WriteAndFlushAsync(
                 _packet
                 .BuildPacket()
-                .GetPacket())
+                .GetBuiltPacket())
             .GetAwaiter()
             .GetResult();
         }

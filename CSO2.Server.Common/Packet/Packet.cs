@@ -26,7 +26,7 @@ namespace CSO2.Server.Common.Packet
         {
             ByteBuffer.Clear();
             ByteBuffer.WriteByte((int)PacketID);
-            foreach (var item in DataMap.MappedData.Select(item => item.Value))
+            foreach (var item in DataMap.MappedDataOut.Select(item => item.Value))
             {
                 switch (item.First().Key)
                 {
@@ -80,14 +80,24 @@ namespace CSO2.Server.Common.Packet
                             ByteBuffer.WriteBoolean((bool)item.First().Value);
                         }
                         break;
-                    case MappedDataTypes.String_UTF8:
+                    case MappedDataTypes.String:
                         {
-                            ByteBuffer.WriteString(item.First().Value.ToString(), Encoding.UTF8);
+                            byte[] bytes = Encoding.UTF8.GetBytes(item.First().Value.ToString()!);
+                            ByteBuffer.WriteByte(bytes.Length);
+                            ByteBuffer.WriteBytes(bytes);
                         }
                         break;
-                    case MappedDataTypes.String_ASCII:
+                    case MappedDataTypes.Bytes:
                         {
-                            ByteBuffer.WriteString(item.First().Value.ToString(), Encoding.ASCII);
+                            byte[] bytes = (byte[])item.First().Value;
+                            ByteBuffer.WriteByte(bytes.Length);
+                            ByteBuffer.WriteBytes(bytes);
+                        }
+                        break;
+                    case MappedDataTypes.Bytes_NoLen:
+                        {
+                            byte[] bytes = (byte[])item.First().Value;
+                            ByteBuffer.WriteBytes(bytes);
                         }
                         break;
                 }
@@ -95,11 +105,85 @@ namespace CSO2.Server.Common.Packet
             return this;
         }
 
-        public virtual IPacket? GetPacket()
+        public virtual IPacket? GetBuiltPacket()
         {
             if (ByteBuffer.ReadableBytes <= 0)
                 return null;
             return this;
+        }
+
+        public virtual void SetMappedPacket(PacketData msg)
+        {
+            foreach (var item in DataMap.MappedDataIn.Select(item => item.Value))
+            {
+                switch (item.First().Key)
+                {
+                    case MappedDataTypes.Integer:
+                        {
+                            item[item.First().Key] = ByteBuffer.ReadInt();
+                        }
+                        break;
+                    case MappedDataTypes.IntegerLE:
+                        {
+                            item[item.First().Key] = ByteBuffer.ReadIntLE();
+                        }
+                        break;
+                    case MappedDataTypes.Short:
+                        {
+                            item[item.First().Key] = ByteBuffer.ReadShort();
+                        }
+                        break;
+                    case MappedDataTypes.ShortLE:
+                        {
+                            item[item.First().Key] = ByteBuffer.ReadShortLE();
+                        }
+                        break;
+                    case MappedDataTypes.Long:
+                        {
+                            item[item.First().Key] = ByteBuffer.ReadLong();
+                        }
+                        break;
+                    case MappedDataTypes.LongLE:
+                        {
+                            item[item.First().Key] = ByteBuffer.ReadLongLE();
+                        }
+                        break;
+                    case MappedDataTypes.Float:
+                        {
+                            item[item.First().Key] = ByteBuffer.ReadFloat();
+                        }
+                        break;
+                    case MappedDataTypes.FloatLE:
+                        {
+                            item[item.First().Key] = ByteBuffer.ReadFloatLE();
+                        }
+                        break;
+                    case MappedDataTypes.Char:
+                        {
+                            item[item.First().Key] = ByteBuffer.ReadChar();
+                        }
+                        break;
+                    case MappedDataTypes.Boolean:
+                        {
+                            item[item.First().Key] = ByteBuffer.ReadBoolean();
+                        }
+                        break;
+                    case MappedDataTypes.String:
+                        {
+                            int strLen = ByteBuffer.ReadByte();
+                            item[item.First().Key] = ByteBuffer.ReadString(strLen, Encoding.UTF8);
+                        }
+                        break;
+                    case MappedDataTypes.Bytes:
+                        {
+                            int byteLen = ByteBuffer.ReadByte();
+                            byte[] bytes = new byte[byteLen];
+                            ByteBuffer.ReadBytes(bytes);
+                            item[item.First().Key] = bytes;
+                        }
+                        break;
+                }
+            }
         }
     }
 }

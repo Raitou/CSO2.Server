@@ -16,8 +16,8 @@ namespace CSO2.Server.TCPServer.Packet
             _version = versionHash;
             _isBadhash = isBadHash;
 
-            DataMap.MappedData["bBadHash"][MappedDataTypes.Boolean] = isBadHash;
-            DataMap.MappedData["strVersion"][MappedDataTypes.String_ASCII] = versionHash;
+            DataMap.MappedDataOut["bBadHash"][MappedDataTypes.Boolean] = isBadHash;
+            DataMap.MappedDataOut["strVersion"][MappedDataTypes.Bytes_NoLen] = Encoding.UTF8.GetBytes(versionHash);
         }
     }
 }

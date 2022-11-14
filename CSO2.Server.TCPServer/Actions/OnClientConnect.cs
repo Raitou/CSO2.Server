@@ -2,13 +2,12 @@
 using CSO2.Server.Common.Packet;
 using CSO2.Server.TCPServer.Packet;
 using DotNetty.Transport.Channels;
-using Action = CSO2.Server.Common.Action.Action;
 
 namespace CSO2.Server.TCPServer.Actions
 {
-    internal class OnClientConnect : ActionChannelCtx
+    public class OnClientConnect : ActionChannelCtx
     {
-        public OnClientConnect(IChannelHandlerContext ctx, PacketData packetData) : base(ctx, packetData) { }
+        public OnClientConnect(IChannelHandlerContext ctx, PacketData packetData) : base(ctx) { }
 
         public override void Execute()
         {

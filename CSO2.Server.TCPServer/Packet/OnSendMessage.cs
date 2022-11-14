@@ -39,7 +39,7 @@ namespace TCPServer.Packet
             return this;
         }
 
-        public IPacket? GetPacket()
+        public IPacket? GetBuiltPacket()
         {
             if (ByteBuffer.ReadableBytes <= 0)
                 return null;

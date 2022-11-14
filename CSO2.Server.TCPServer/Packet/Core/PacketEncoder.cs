@@ -22,7 +22,7 @@ namespace CSO2.Server.TCPServer.Packet.Core
             {
                 try
                 {
-                    if (message.GetPacket() == null)
+                    if (message.GetBuiltPacket() == null)
                         throw new Exception("Packet is Empty");
 
                     if(message.PacketID != PacketID.ClientConnect)
@@ -39,7 +39,7 @@ namespace CSO2.Server.TCPServer.Packet.Core
                 }
                 finally
                 {
-                    if (message.GetPacket() != null)
+                    if (message.GetBuiltPacket() != null)
                         message.ByteBuffer.Clear();
                 }
             }

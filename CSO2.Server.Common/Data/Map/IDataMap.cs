@@ -21,6 +21,7 @@ namespace CSO2.Server.Common.Data.Map
          * Access Key Example: MappedData["Key"][MappedDataTypes.String] = "Value"
          * </summary>
          */
-        public Dictionary<string, Dictionary<MappedDataTypes, object>> MappedData { get; }
+        public Dictionary<string, Dictionary<MappedDataTypes, object>> MappedDataIn { get; }
+        public Dictionary<string, Dictionary<MappedDataTypes, object>> MappedDataOut { get; }
     }
 }

@@ -81,7 +81,17 @@ namespace CSO2.Server.Common.Packet.Enum
         FloatLE,
         Char,
         Boolean,
-        String_UTF8,
-        String_ASCII,
+        String,
+        Bytes,
+        Bytes_NoLen,
+    }
+
+    public enum LoginReturnTypes
+    {
+        USER_LOGIN_SUCCESS = 0,
+        USER_ALREADY_LOGIN,
+        USER_NOT_FOUND,
+        USER_PASSWD_ERROR,
+        USER_UNKOWN_ERROR,
     }
 }
