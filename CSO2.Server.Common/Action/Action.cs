@@ -16,10 +16,17 @@ namespace CSO2.Server.Common.Action
     public abstract class ActionChannelCtx : Action
     {
         public IChannelHandlerContext ChannelHandlerContext { get; protected set; }
+        public PacketData PacketData { get; protected set; }
 
-        protected ActionChannelCtx(IChannelHandlerContext ctx)
+        protected ActionChannelCtx(IChannelHandlerContext ctx, PacketData packetData)
         {
             ChannelHandlerContext = ctx;
+            PacketData = packetData;
+        }
+
+        protected virtual void Received(IPacket packet)
+        {
+            packet.SetMappedPacket(PacketData);
         }
 
         protected virtual void Send(IPacket packet)

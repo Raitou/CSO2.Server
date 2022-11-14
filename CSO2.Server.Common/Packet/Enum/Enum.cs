@@ -82,6 +82,8 @@ namespace CSO2.Server.Common.Packet.Enum
         Char,
         Boolean,
         String,
+        String_LenShort,
+        Byte,
         Bytes,
         Bytes_NoLen,
     }

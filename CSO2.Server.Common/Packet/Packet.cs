@@ -1,5 +1,6 @@
 ﻿using CSO2.Server.Common.Data.Map;
 using CSO2.Server.Common.Packet.Enum;
+using CSO2.Server.Common.Utilities;
 using DotNetty.Buffers;
 using System;
 using System.Collections.Generic;
@@ -87,6 +88,11 @@ namespace CSO2.Server.Common.Packet
                             ByteBuffer.WriteBytes(bytes);
                         }
                         break;
+                    case MappedDataTypes.Byte:
+                        {
+                            ByteBuffer.WriteByte((byte)item.First().Value);
+                        }
+                        break;
                     case MappedDataTypes.Bytes:
                         {
                             byte[] bytes = (byte[])item.First().Value;
@@ -114,76 +120,98 @@ namespace CSO2.Server.Common.Packet
 
         public virtual void SetMappedPacket(PacketData msg)
         {
+            IByteBuffer byteBuffer = Unpooled.CopiedBuffer(msg.RawData);
             foreach (var item in DataMap.MappedDataIn.Select(item => item.Value))
             {
                 switch (item.First().Key)
                 {
                     case MappedDataTypes.Integer:
                         {
-                            item[item.First().Key] = ByteBuffer.ReadInt();
+                            item[item.First().Key] = byteBuffer.ReadInt();
                         }
                         break;
                     case MappedDataTypes.IntegerLE:
                         {
-                            item[item.First().Key] = ByteBuffer.ReadIntLE();
+                            item[item.First().Key] = byteBuffer.ReadIntLE();
                         }
                         break;
                     case MappedDataTypes.Short:
                         {
-                            item[item.First().Key] = ByteBuffer.ReadShort();
+                            item[item.First().Key] = byteBuffer.ReadShort();
                         }
                         break;
                     case MappedDataTypes.ShortLE:
                         {
-                            item[item.First().Key] = ByteBuffer.ReadShortLE();
+                            item[item.First().Key] = byteBuffer.ReadShortLE();
                         }
                         break;
                     case MappedDataTypes.Long:
                         {
-                            item[item.First().Key] = ByteBuffer.ReadLong();
+                            item[item.First().Key] = byteBuffer.ReadLong();
                         }
                         break;
                     case MappedDataTypes.LongLE:
                         {
-                            item[item.First().Key] = ByteBuffer.ReadLongLE();
+                            item[item.First().Key] = byteBuffer.ReadLongLE();
                         }
                         break;
                     case MappedDataTypes.Float:
                         {
-                            item[item.First().Key] = ByteBuffer.ReadFloat();
+                            item[item.First().Key] = byteBuffer.ReadFloat();
                         }
                         break;
                     case MappedDataTypes.FloatLE:
                         {
-                            item[item.First().Key] = ByteBuffer.ReadFloatLE();
+                            item[item.First().Key] = byteBuffer.ReadFloatLE();
                         }
                         break;
                     case MappedDataTypes.Char:
                         {
-                            item[item.First().Key] = ByteBuffer.ReadChar();
+                            item[item.First().Key] = byteBuffer.ReadChar();
                         }
                         break;
                     case MappedDataTypes.Boolean:
                         {
-                            item[item.First().Key] = ByteBuffer.ReadBoolean();
+                            item[item.First().Key] = byteBuffer.ReadBoolean();
                         }
                         break;
                     case MappedDataTypes.String:
                         {
-                            int strLen = ByteBuffer.ReadByte();
-                            item[item.First().Key] = ByteBuffer.ReadString(strLen, Encoding.UTF8);
+                            int strLen = byteBuffer.ReadByte();
+                            item[item.First().Key] = byteBuffer.ReadString(strLen, Encoding.UTF8);
+                        }
+                        break;
+                    case MappedDataTypes.String_LenShort:
+                        {
+                            int strLen = byteBuffer.ReadShortLE();
+                            item[item.First().Key] = byteBuffer.ReadString(strLen, Encoding.UTF8);
+                        }
+                        break;
+                    case MappedDataTypes.Byte:
+                        {
+                            item[item.First().Key] = byteBuffer.ReadByte();
                         }
                         break;
                     case MappedDataTypes.Bytes:
                         {
-                            int byteLen = ByteBuffer.ReadByte();
+                            int byteLen = byteBuffer.ReadByte();
                             byte[] bytes = new byte[byteLen];
-                            ByteBuffer.ReadBytes(bytes);
+                            byteBuffer.ReadBytes(bytes);
                             item[item.First().Key] = bytes;
+                        }
+                        break;
+                    case MappedDataTypes.Bytes_NoLen:
+                        {
+                            item[item.First().Key] = byteBuffer.ReadBytes((byte[])item[item.First().Key]); //if no length is provided then we will use the lenght that is already declared in the mapped data
                         }
                         break;
                 }
             }
+
+            //test
+            MappedUtil.PrintMap(DataMap.MappedDataIn);
+
+            byteBuffer.Clear();
         }
     }
 }

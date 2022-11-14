@@ -40,11 +40,11 @@ namespace TCPServer.Channel.Handler
                         }
                         break;
 
-                    //case PacketID.Login:
-                    //    {
-                    //        _action = new OnLogin(ctx, msg);
-                    //    }
-                    //    break;
+                    case PacketID.Login:
+                        {
+                            _action = new OnLogin(ctx, msg);
+                        }
+                        break;
 
                     default:
                         {

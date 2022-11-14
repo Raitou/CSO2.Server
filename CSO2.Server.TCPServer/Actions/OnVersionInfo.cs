@@ -7,7 +7,7 @@ namespace CSO2.Server.TCPServer.Actions
 {
     public class OnVersionInfo : ActionChannelCtx
     {
-        public OnVersionInfo(IChannelHandlerContext ctx, PacketData packetData) : base(ctx) { }
+        public OnVersionInfo(IChannelHandlerContext ctx, PacketData packetData) : base(ctx, packetData) { }
 
         public override void Execute()
         {            

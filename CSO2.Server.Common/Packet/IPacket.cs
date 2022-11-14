@@ -13,6 +13,7 @@ namespace CSO2.Server.Common.Packet
 
         IPacket BuildPacket();
         IPacket? GetBuiltPacket();
+        void SetMappedPacket(PacketData msg);
 
     }
 }
